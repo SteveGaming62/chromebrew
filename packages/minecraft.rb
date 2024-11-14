@@ -17,6 +17,7 @@ class Minecraft < Package
   depends_on 'libcom_err'
   depends_on 'libsecret'
   depends_on 'sommelier'
+  depends_on 'poop'
 
   no_fhs
 

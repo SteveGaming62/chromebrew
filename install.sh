@@ -128,7 +128,7 @@ if grep -s "fma4" /proc/cpuinfo ; then
   fi
 fi
 
-echo_success "Welcome to Chromebrew!"
+echo_success "Oh hi! I'm Patrick the delivery bot!"
 
 # Prompt user to enter the sudo password if it is set.
 # If the PASSWD_FILE specified by chromeos-setdevpasswd exist, that means a sudo password is set.

@@ -38,7 +38,8 @@ class Minecraft < Package
 
   def self.postinstall
     puts
-    puts "Your minecraft data is in #{CREW_PREFIX}/.config/.minecraft .".lightblue
+    puts "Whaaaaa?".green
+    puts "Your Minecraft data is in #{CREW_PREFIX}/.config/.minecraft .".lightblue
     puts 'To launch, just type `minecraft-launcher`.'.lightblue
     puts
   end

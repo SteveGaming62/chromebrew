@@ -1,7 +1,7 @@
 require 'package'
 
 class Minecraft < Package
-  description 'A sandbox video game developed by Mojang Studios AB.'
+  description 'A sandy sandbox video game developed by Mojang Studios ABCDEFG.'
   homepage 'https://minecraft.net'
   version '2.2.3200'
   license 'Mojang'

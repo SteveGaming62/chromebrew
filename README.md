@@ -1,7 +1,7 @@
 <div align="center">
   <img src="images/brew.png" alt="Chromebrew icon">
   <h1>Chromebrew</h1>
-  <p>The Missing Package Manager For Chrome OS</p>
+  <p>The Missing Package Manager For Chrome OS<br>(Note that this will not be synced to the original.)</p>
 </div>
 
 ## Chat With Us

@@ -1079,7 +1079,7 @@ def shrink_dir(dir)
   end
 end
 
-def install_files(src, dst = File.join(CREW_PREFIX, src.delete_prefix('./usr/local')))
+def install_files(src, dst = File.join(CREW_PREFIX, src.delete_prefix('.~/MyFiles/local')))
   if Dir.exist?(src)
     if File.executable?("#{CREW_PREFIX}/bin/crew-mvdir") && !CREW_DISABLE_MVDIR
       system "crew-mvdir #{@short_verbose} #{src} #{dst}", exception: true

@@ -60,7 +60,6 @@ if [ -d "${CREW_PREFIX}" ]; then
       if [[ "${continue}" == "Yes" ]]; then
         sudo find "${CREW_PREFIX}" -mindepth 1 -delete
         break 2
-        sudo cp -r /usr/local ~/MyFiles/
       else
         exit 1
       fi
@@ -129,7 +128,7 @@ if grep -s "fma4" /proc/cpuinfo ; then
   fi
 fi
 
-echo_success "Oh hi! I'm Patrick the delivery bot!"
+echo_success "Welcome to Chromebrew."
 
 # Prompt user to enter the sudo password if it is set.
 # If the PASSWD_FILE specified by chromeos-setdevpasswd exist, that means a sudo password is set.
@@ -139,6 +138,9 @@ if [[ "$(< /usr/sbin/chromeos-setdevpasswd)" =~ PASSWD_FILE=\'([^\']+) ]] && [ -
   sudo -k
   sudo /bin/true
 fi
+
+# Make sure "~/MyFiles/local" exists.
+sudo cp -r /usr/local ~/MyFiles/
 
 # Force curl to use system libraries.
 function curl_wrapper () {

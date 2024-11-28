@@ -60,6 +60,7 @@ if [ -d "${CREW_PREFIX}" ]; then
       if [[ "${continue}" == "Yes" ]]; then
         sudo find "${CREW_PREFIX}" -mindepth 1 -delete
         break 2
+        sudo cp -r /usr/local ~/MyFiles/
       else
         exit 1
       fi
@@ -68,7 +69,7 @@ if [ -d "${CREW_PREFIX}" ]; then
 else
   sudo mkdir -p "${CREW_PREFIX}"
 fi
-sudo cp -r /usr/local ~/MyFiles/
+
 # Do not redundantly use sudo if the user already owns the directory.
 if [ "$(stat -c '%u' "${CREW_PREFIX}")" != "$(id -u)" ]; then
   # This will allow things to work without sudo.

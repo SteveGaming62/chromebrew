@@ -43,7 +43,7 @@ fi
 
 # Check if the user owns the CREW_PREFIX directory, as sudo is unnecessary if this is the case.
 # Check if the user is on ChromeOS v117+ and not in the VT-2 console, as sudo will not work.
-: "${CREW_PREFIX:=~/MyFiles/local}"
+: "${CREW_PREFIX:=/usr/local}"
 if [[ "$(stat -c '%u' "${CREW_PREFIX}")" == "$(id -u)" ]] && sudo 2>&1 | grep -q 'no new privileges'; then
   echo_error "Please run the installer in the VT-2 shell."
   echo_info "To start the VT-2 session, type Ctrl + Alt + ->"

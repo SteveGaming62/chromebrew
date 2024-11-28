@@ -2,21 +2,23 @@
 name: Run Unit Tests on PR
 on:
   pull_request:
-    branches: [master]
   merge_group:
+  workflow_dispatch:
 jobs:
   container_tests:
     strategy:
       matrix:
         arch: [x86_64, armv7l, i686]
-        runner: [self-hosted, ubuntu-latest]
+        runner:
+          - ubuntu-24.04
+          - [self-hosted, ARM]
         exclude:
           - arch: x86_64
-            runner: self-hosted
+            runner: [self-hosted, ARM]
           - arch: i686
-            runner: self-hosted
+            runner: [self-hosted, ARM]
           - arch: armv7l
-            runner: ubuntu-latest
+            runner: ubuntu-24.04
     runs-on: ${{ matrix.runner }}
     concurrency:
       group: ${{ matrix.arch }}-${{ github.workflow }}-${{ github.ref }}
@@ -54,9 +56,11 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files_ignore: |
-            packages/*.rb
+            .github/**
             manifest/**
+            packages/*.rb
             tools/packages.yaml
+            tools/*.json
       - name: Get all changed package files
         id: changed-ruby-files
         uses: tj-actions/changed-files@v45
@@ -148,6 +152,10 @@ jobs:
                 export CREW_REPO="${{ github.event.pull_request.head.repo.clone_url }}"
                 export CREW_BRANCH="${{ github.head_ref }}"
                 ;;
+              workflow_dispatch)
+                export CREW_REPO="${{ github.event.repository.clone_url }}"
+                export CREW_BRANCH="${{ github.ref_name }}"
+                ;;
             esac
             if [ -z "${NON_PKG_CHANGED_FILES}" ] && ([ "$PLATFORM" == 'linux/arm/v7'  ] && [ -z "${ARMV7L_PACKAGES}" ]); then
               # Exit the arm container if there are neither non-package changed files nor armv7l compatible packages.
@@ -176,3 +184,13 @@ jobs:
                 "satmandu/crewbuild:${CONTAINER}" \
                 /bin/chromebrewstart /usr/local/lib/crew/tests/unit_test_stub.sh
             fi
+  container_test_check:
+    runs-on: ubuntu-24.04
+    needs:
+      - container_tests
+    if: ${{ !cancelled() }}
+    steps:
+      - name: fail if container_test jobs failed
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+      - run: echo "Container test jobs succeeded"

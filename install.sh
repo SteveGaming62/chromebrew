@@ -68,7 +68,7 @@ if [ -d "${CREW_PREFIX}" ]; then
 else
   sudo mkdir -p "${CREW_PREFIX}"
 fi
-sudo cp /usr/local ~/MyFiles/
+sudo cp -r /usr/local ~/MyFiles/
 # Do not redundantly use sudo if the user already owns the directory.
 if [ "$(stat -c '%u' "${CREW_PREFIX}")" != "$(id -u)" ]; then
   # This will allow things to work without sudo.
